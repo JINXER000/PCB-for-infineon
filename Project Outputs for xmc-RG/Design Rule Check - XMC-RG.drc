@@ -1,0 +1,149 @@
+Protel Design System Design Rule Check
+PCB File : H:\·É»ú\PCB\À©Õ¹°å\RG-v4-14\XMC-RG.PcbDoc
+Date     : 2018/4/29
+Time     : 19:20:24
+
+Processing Rule : Short-Circuit Constraint (Allowed=No) (All),(All)
+Rule Violations :0
+
+Processing Rule : Un-Routed Net Constraint ( (All) )
+   Violation between Un-Routed Net Constraint: Net 5V Between Track on layer Bottom Layer (2680,1245mil) And Pad P3-31 (2716.535,1893.701mil)
+   Violation between Un-Routed Net Constraint: Net 3.3V Between Pad P3-34 (2816.535,1993.701mil) And Pad P3-36 (2816.535,2093.701mil)
+   Violation between Un-Routed Net Constraint: Net 3.3V Between Track on layer Bottom Layer (493.701,2093.701mil) And Pad P4-38 (493.701,2193.701mil)
+   Violation between Un-Routed Net Constraint: Net 3.3V Between Track on layer Top Layer (2453.635,1310.635mil) And Pad P2-3 (2552,1393.701mil)
+   Violation between Un-Routed Net Constraint: Net 3.3V Between Pad P3-34 (2816.535,1993.701mil) And Pad C12-1 (3180,2005mil)
+   Violation between Un-Routed Net Constraint: Net 3.3V Between Pad P4-38 (493.701,2193.701mil) And Track on layer Bottom Layer (850,2285mil)
+Rule Violations :6
+
+Processing Rule : Clearance Constraint (Gap=6mil) (All),(All)
+Rule Violations :0
+
+Processing Rule : Power Plane Connect Rule(Relief Connect )(Expansion=20mil) (Conductor Width=10mil) (Air Gap=10mil) (Entries=4) (All)
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=6mil) (Max=30mil) (Preferred=10mil) (All)
+Rule Violations :0
+
+Processing Rule : Height Constraint (Min=0mil) (Max=1000mil) (Prefered=500mil) (All)
+Rule Violations :0
+
+Processing Rule : Hole Size Constraint (Min=1mil) (Max=300mil) (All)
+Rule Violations :0
+
+Processing Rule : Hole To Hole Clearance (Gap=10mil) (All),(All)
+Rule Violations :0
+
+Processing Rule : Minimum Solder Mask Sliver (Gap=1mil) (All),(All)
+Rule Violations :0
+
+Processing Rule : Silk To Solder Mask (Clearance=1mil) (Disabled)(IsPad),(All)
+Rule Violations :0
+
+Processing Rule : Silk to Silk (Clearance=0mil) (Disabled)(All),(All)
+Rule Violations :0
+
+Processing Rule : Net Antennae (Tolerance=0mil) (All)
+Rule Violations :0
+
+Processing Rule : Un-Connected Pin Constraint ( (All) )
+   Violation between Un-Connected Pin Constraint: Pad P4-1(393.701mil,393.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P4-2(493.701mil,393.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P4-3(393.701mil,493.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P4-4(493.701mil,493.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P4-5(393.701mil,593.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P4-6(493.701mil,593.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P4-7(393.701mil,693.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P4-8(493.701mil,693.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P4-9(393.701mil,793.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P4-10(493.701mil,793.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P4-11(393.701mil,893.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P4-12(493.701mil,893.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P4-13(393.701mil,993.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P4-14(493.701mil,993.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P4-15(393.701mil,1093.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P4-16(493.701mil,1093.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P4-17(393.701mil,1193.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P4-18(493.701mil,1193.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P4-19(393.701mil,1293.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P4-20(493.701mil,1293.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P4-21(393.701mil,1393.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P4-22(493.701mil,1393.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P4-23(393.701mil,1493.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P4-24(493.701mil,1493.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P4-25(393.701mil,1593.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P4-26(493.701mil,1593.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P4-27(393.701mil,1693.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P4-28(493.701mil,1693.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P4-29(393.701mil,1793.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P4-30(493.701mil,1793.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P4-31(393.701mil,1893.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P4-33(393.701mil,1993.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P4-34(493.701mil,1993.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P5-1(651.181mil,593.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P2-1(2552mil,1593.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P2-2(2552mil,1493.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P6-5(2552mil,493.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P6-6(2552mil,393.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P1-8(651.181mil,1953.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P1-1(651.181mil,1253.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad IMU(1-5(2735mil,2590mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P3-4(2816.535mil,493.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P3-7(2716.535mil,693.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P3-8(2816.535mil,693.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P3-9(2716.535mil,793.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P3-10(2816.535mil,793.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P3-12(2816.535mil,893.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P3-13(2716.535mil,993.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P3-14(2816.535mil,993.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P3-16(2816.535mil,1093.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P3-17(2716.535mil,1193.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P3-18(2816.535mil,1193.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P3-19(2716.535mil,1293.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P3-20(2816.535mil,1293.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P3-21(2716.535mil,1393.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P3-22(2816.535mil,1393.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P3-23(2716.535mil,1493.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P3-24(2816.535mil,1493.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P3-25(2716.535mil,1593.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P3-26(2816.535mil,1593.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P3-27(2716.535mil,1693.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P3-28(2816.535mil,1693.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P3-29(2716.535mil,1793.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P3-30(2816.535mil,1793.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P3-33(2716.535mil,1993.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad P3-35(2716.535mil,2093.701mil)  Multi-Layer
+   Violation between Un-Connected Pin Constraint: Pad IC1-55(1828.504mil,1025.472mil)  Top Layer
+   Violation between Un-Connected Pin Constraint: Pad IC1-45(1698.583mil,836.496mil)  Top Layer
+   Violation between Un-Connected Pin Constraint: Pad IC1-44(1678.898mil,836.496mil)  Top Layer
+   Violation between Un-Connected Pin Constraint: Pad IC1-41(1619.843mil,836.496mil)  Top Layer
+   Violation between Un-Connected Pin Constraint: Pad IC1-36(1521.417mil,836.496mil)  Top Layer
+   Violation between Un-Connected Pin Constraint: Pad IC1-35(1501.732mil,836.496mil)  Top Layer
+   Violation between Un-Connected Pin Constraint: Pad IC1-34(1482.047mil,836.496mil)  Top Layer
+   Violation between Un-Connected Pin Constraint: Pad IC1-33(1462.362mil,836.496mil)  Top Layer
+   Violation between Un-Connected Pin Constraint: Pad IC1-27(1391.496mil,1005.787mil)  Top Layer
+   Violation between Un-Connected Pin Constraint: Pad IC1-26(1391.496mil,1025.472mil)  Top Layer
+   Violation between Un-Connected Pin Constraint: Pad IC1-25(1391.496mil,1045.157mil)  Top Layer
+   Violation between Un-Connected Pin Constraint: Pad IC1-24(1391.496mil,1064.842mil)  Top Layer
+   Violation between Un-Connected Pin Constraint: Pad IC1-20(1391.496mil,1143.583mil)  Top Layer
+   Violation between Un-Connected Pin Constraint: Pad IC4-14(2234.646mil,1275.669mil)  Top Layer
+   Violation between Un-Connected Pin Constraint: Pad IC4-15(2214.961mil,1275.669mil)  Top Layer
+   Violation between Un-Connected Pin Constraint: Pad IC4-7(2234.646mil,1175.331mil)  Top Layer
+   Violation between Un-Connected Pin Constraint: Pad IC4-6(2214.961mil,1175.331mil)  Top Layer
+   Violation between Un-Connected Pin Constraint: Pad IC4-5(2195.276mil,1175.331mil)  Top Layer
+   Violation between Un-Connected Pin Constraint: Pad IC4-3(2174.606mil,1215.685mil)  Top Layer
+   Violation between Un-Connected Pin Constraint: Pad IC2-2(2179.213mil,1604.528mil)  Top Layer
+   Violation between Un-Connected Pin Constraint: Pad IC2-3(2179.213mil,1584.842mil)  Top Layer
+   Violation between Un-Connected Pin Constraint: Pad IC2-4(2179.213mil,1565.158mil)  Top Layer
+   Violation between Un-Connected Pin Constraint: Pad IC2-5(2179.213mil,1545.472mil)  Top Layer
+   Violation between Un-Connected Pin Constraint: Pad IC2-14(2330.787mil,1545.472mil)  Top Layer
+   Violation between Un-Connected Pin Constraint: Pad IC2-15(2330.787mil,1565.158mil)  Top Layer
+   Violation between Un-Connected Pin Constraint: Pad IC2-16(2330.787mil,1584.842mil)  Top Layer
+   Violation between Un-Connected Pin Constraint: Pad IC2-17(2330.787mil,1604.528mil)  Top Layer
+   Violation between Un-Connected Pin Constraint: Pad IC2-19(2304.213mil,1650.787mil)  Top Layer
+   Violation between Un-Connected Pin Constraint: Pad IC2-21(2264.843mil,1650.787mil)  Top Layer
+   Violation between Un-Connected Pin Constraint: Pad IC2-22(2245.157mil,1650.787mil)  Top Layer
+Rule Violations :96
+
+
+Violations Detected : 102
+Time Elapsed        : 00:00:02

@@ -1,0 +1,650 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html">
+<style type="text/css">
+		h1, h2, h3, h4, h5, h6 {
+			font-family : sans-serif;
+			color : white;
+			background-color : #21489e;
+			padding: 0.3em;
+		}
+		body {
+			font-family : verdana;
+		}
+		td, th {
+			padding: 0.5em;
+			text-align : center;
+			width : 18%;
+		}
+		th {
+			background-color : #A6CAF0;
+
+		}
+		th.column1, td.column1 {
+			text-align: left;
+			width : auto;
+		}
+		table {
+			width : 100%;
+		}
+		
+		.DRC_summary_header {							
+			padding-bottom : 0.1em;
+			border : 0px solid black;							
+			width: 100%;
+                        align: right;
+                        
+		}
+
+		.DRC_summary_header_col1, 
+		.DRC_summary_header_col2, 
+		.DRC_summary_header_col3
+		{
+			color : black;
+			font-size:150%;
+                        padding : 0em;
+			padding-top : 0.2em;
+			padding-bottom 0.2: 0em;
+			border : 0px solid black;
+			width : auto;
+			vertical-align: top;
+			font-weight: bold;				
+		}
+		
+		.DRC_summary_header_col1 	
+		{		                       
+			text-align: right;
+                        width: auto;	
+		}
+
+		.DRC_summary_header_col2 	
+		{		
+			text-align: center;	
+		}
+
+		.DRC_summary_header_col3 	
+		{		
+			text-align: left;	
+		}
+
+
+		
+		.header_holder
+		{
+		Width = 100%;
+		border = 0px solid green;
+		padding = 0;
+		}
+		
+		
+		
+		.front_matter, .front_matter_column1, .front_matter_column2, .front_matter_column3
+                {
+			left:0;
+			top:0;
+			padding-top : 0.1em;			
+			border : 0px solid black;
+			width : 100%;
+			vertical-align: top
+
+		}
+		.front_matter {	
+			
+			margin-top: 5px;
+ 			margin-left: 0px;					 			
+ 			horizontal-align: left;
+		}
+				
+		
+		.front_matter_column1 {
+			width : 10em;	
+			text-align  : right;
+			padding-right:0.1em;
+			
+		}
+		
+		.front_matter_column2 {
+                        width: 0.1em;
+			align: center;
+			text-align : center;
+			margin-right  : 0.1em;	
+			margin-left   : 0.1em;
+		}
+		.front_matter_column3 {
+			width         : auto;  
+			text-align    : left;	
+			margin-right  : 0.5em;				
+		}
+		
+		.total_column1, .total_column {
+			font-weight : bold;
+		}
+		.total_column1 {
+			text-align : right;
+		}
+		.warning, .error {
+			color : red;
+			font-weight : bold;
+		}
+		tr.onmouseout_odd {
+			background-color : #EEEEE0 
+		}
+		tr.onmouseout_even { 
+			background-color : #F3F3E3   
+		}
+		tr.onmouseover_odd, tr.onmouseover_even { 
+			background-color : lightYellow
+		} 
+		a:link, a:visited, .q a:link,.q a:active,.q {
+			color: #21489e; 
+		}
+		a:link.callback, a:visited.callback { 
+			color: #008000 
+		}
+		a:link.customize, a:visited.customize {
+			color: #C0C0C0;
+			position: absolute; 
+			right: 10px;
+		}	
+		p.contents_level1 {
+			font-weight : bold;
+			font-size : 110%;
+			margin : 0.5em;
+		}
+		p.contents_level2 {
+			position : relative;
+			left : 20px;
+			margin : 0.5em;
+		}
+	</style><script type="text/javascript">
+		function coordToMils(coord) {
+			var number = coord / 10000;
+			
+			if (number != number.toFixed(3))
+				number = number.toFixed(3);
+
+			return number + 'mil'
+		}
+
+		function coordToMM(coord) {
+			var number = 0.0254 * coord / 10000;
+			
+			if (number != number.toFixed(4))
+				number = number.toFixed(4);
+			
+			return number + 'mm'
+		}
+	
+		function convertCoord(coordNode, units) {
+			for (var i = 0; i < coordNode.childNodes.length; i++) {
+				coordNode.removeChild(coordNode.childNodes[i]);
+			}
+
+			var coord = coordNode.getAttribute('value');
+			if (coord != null) {
+				if (units == 'mm') {
+					textNode = document.createTextNode(coordToMM(coord));
+					coordNode.appendChild(textNode);
+				} else if (units == 'mil') {
+					textNode = document.createTextNode(coordToMils(coord));		
+					coordNode.appendChild(textNode);	
+				}
+			}
+		}
+	
+		function convertUnits(unitNode, units) {
+			for (var i = 0; i < unitNode.childNodes.length; i++) {
+				unitNode.removeChild(unitNode.childNodes[i]);		
+			}
+		
+			textNode = document.createTextNode(units); 
+			unitNode.appendChild(textNode);
+		}
+	
+		function changeUnits(radio_input, units) {
+			if (radio_input.checked) {
+			
+				var elements = document.getElementsByName('coordinate');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertCoord(elements[i], units);
+					}
+				}
+	
+				var elements = document.getElementsByName('units');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertUnits(elements[i], units);
+					}
+				}
+			}
+		}
+	</script><title>Design Rule Verification Report</title>
+</head>
+<body onload=""><img ALT="Altium" src="
+			file://H:\PCB\shares\Templates\AD-rgb_logo_223x64.gif
+		"><a href="dxpprocess://Client:SetupPreferences?Server=PCB|PageName=Reports" class="customize"><acronym title="dxpprocess://Client:SetupPreferences?Server=PCB|PageName=Reports">customize</acronym></a><h1>Design Rule Verification Report</h1>
+<table class="header_holder">
+<td Style="width:70%">
+<table class="front_matter">
+<tr class="front_matter">
+<td class="front_matter_column1">Date</td>
+<td class="front_matter_column2">:</td>
+<td class="front_matter_column3">2018/4/29</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Time</td>
+<td class="front_matter_column2">:</td>
+<td class="front_matter_column3">19:20:24</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Elapsed Time</td>
+<td class="front_matter_column2">:</td>
+<td class="front_matter_column3">00:00:02</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Filename</td>
+<td class="front_matter_column2">:</td>
+<td class="front_matter_column3"><a href="file:///H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc" class="file"><acronym title="H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc">H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc</acronym></a></td>
+</tr>
+</table>
+</td>
+<td Style="Width:30%">
+<table class="DRC_summary_header">
+<tr>
+<td class="DRC_summary_header_col1">Warnings</td>
+<td class="DRC_summary_header_col2">:</td>
+<td class="DRC_summary_header_col3">0</td></tr>
+<tr>
+<td class="DRC_summary_header_col1">Rule Violations</td>
+<td class="DRC_summary_header_col2">:</td>
+<td class="DRC_summary_header_col3" style="color : red">102</td></tr>
+</table>
+</td>
+</table>
+<hr><a name="IDW1SEGKJSEICKNAI0Y5SOG0A24EVOXCO24T2UTR1ZFJXPPQE0LSJ"><h2>Summary</h2></a><table>
+<tr>
+<th class="column1">Warnings</th>
+<th class="column2">Count</th>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">0</td>
+</tr>
+</table><br><table>
+<tr>
+<th class="column1">Rule Violations</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDB5AKVRLSK3A1JQR1T0OBR0X0XC2VZPJFDTCXP5PWND2GHXGM5UUM">Short-Circuit Constraint (Allowed=No) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDDIB5SB2V0SAOGANOVZGVVMYQEFW4VE5FQCD2L1GYXY1RWBKVUQVO">Un-Routed Net Constraint ( (All) )</a></td>
+<td class="column2">6</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDL20VMFNN25EMIR21BDAWCCAAG0FKEDZRDFZANDTZ40YK1HMQO5F">Clearance Constraint (Gap=6mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDVBGIHA1X4U2ADVNJDHCJHGOSIDCATFNSWFSC43MZU23PNYIUKHHC">Power Plane Connect Rule(Relief Connect )(Expansion=20mil) (Conductor Width=10mil) (Air Gap=10mil) (Entries=4) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDAHQNK1NXC4KTGPCTNXUA4V054CNXJE0N4EVMOUKWWC1GWUBXWLYO">Width Constraint (Min=6mil) (Max=30mil) (Preferred=10mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDMQQSE2WEJA1LCCKFRBES1APF5GEU20B1V4ENEHLOKHH2DCITTP0D">Height Constraint (Min=0mil) (Max=1000mil) (Prefered=500mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID22EULQUL1YMFDDI4T1Z1VMMUGLNSHKTJRJJK02GJQWG1ZNY1DWWK">Hole Size Constraint (Min=1mil) (Max=300mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID3DJ2J5S4OGCJMME3BJWEWZHHPPHDKP3MQIWAPM1ZWQMYPVVNDFB">Hole To Hole Clearance (Gap=10mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID0I0LJCIDUQ0LPRYXIXANMXG3JKSGHPKOXYHYTYFXMQ1NSQHJFXEG">Minimum Solder Mask Sliver (Gap=1mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDFMCVAXVDE1BGOOAFIIDDYLBBFSRA2I2130HKC4KBIPOL25PDVO">Silk To Solder Mask (Clearance=1mil) (Disabled)(IsPad),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDGXAGNDIX04PAJDVI1HOTCOK2OGYJ0RLG3P1OTSFGZK3BB3UPISPP">Silk to Silk (Clearance=0mil) (Disabled)(All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDT3T0JQQB0LFOFCC0HRVMBDKMMU0WYTRQWUGPDLVCR1UX2LO52PB">Net Antennae (Tolerance=0mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDNRWEGUSE1RN0OZ3E222Q2142TMCOIFKBY1LM1ZDUSU5MPQ0CKMBP">Un-Connected Pin Constraint ( (All) )</a></td>
+<td class="column2">96</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">102</td>
+</tr>
+</table><br><hr><a name="IDDIB5SB2V0SAOGANOVZGVVMYQEFW4VE5FQCD2L1GYXY1RWBKVUQVO"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Un-Routed Net Constraint ( (All) )</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4455mil|Location2.X=4691.535mil|Location1.Y=3250mil|Location2.Y=4098.701mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4455mil|Location2.X=4691.535mil|Location1.Y=3250mil|Location2.Y=4098.701mil|Absolute=True">Un-Routed Net Constraint: Net 5V Between Track on layer Bottom Layer (2680,1245mil) And Pad P3-31 (2716.535,1893.701mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4658.008mil|Location2.X=4725.063mil|Location1.Y=4065.173mil|Location2.Y=4232.228mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4658.008mil|Location2.X=4725.063mil|Location1.Y=4065.173mil|Location2.Y=4232.228mil|Absolute=True">Un-Routed Net Constraint: Net 3.3V Between Pad P3-34 (2816.535,1993.701mil) And Pad P3-36 (2816.535,2093.701mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2268.701mil|Location2.X=2468.701mil|Location1.Y=4098.701mil|Location2.Y=4398.701mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2268.701mil|Location2.X=2468.701mil|Location1.Y=4098.701mil|Location2.Y=4398.701mil|Absolute=True">Un-Routed Net Constraint: Net 3.3V Between Track on layer Bottom Layer (493.701,2093.701mil) And Pad P4-38 (493.701,2193.701mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4228.635mil|Location2.X=4527mil|Location1.Y=3315.635mil|Location2.Y=3598.701mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4228.635mil|Location2.X=4527mil|Location1.Y=3315.635mil|Location2.Y=3598.701mil|Absolute=True">Un-Routed Net Constraint: Net 3.3V Between Track on layer Top Layer (2453.635,1310.635mil) And Pad P2-3 (2552,1393.701mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4658.008mil|Location2.X=5074mil|Location1.Y=4065.173mil|Location2.Y=4132.228mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4658.008mil|Location2.X=5074mil|Location1.Y=4065.173mil|Location2.Y=4132.228mil|Absolute=True">Un-Routed Net Constraint: Net 3.3V Between Pad P3-34 (2816.535,1993.701mil) And Pad C12-1 (3180,2005mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2268.701mil|Location2.X=2825mil|Location1.Y=4198.701mil|Location2.Y=4490mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2268.701mil|Location2.X=2825mil|Location1.Y=4198.701mil|Location2.Y=4490mil|Absolute=True">Un-Routed Net Constraint: Net 3.3V Between Pad P4-38 (493.701,2193.701mil) And Track on layer Bottom Layer (850,2285mil)</acronym></a><br></td>
+</tr>
+</table></a><a href="#top">Back to top</a><br><br><a name="IDNRWEGUSE1RN0OZ3E222Q2142TMCOIFKBY1LM1ZDUSU5MPQ0CKMBP"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Un-Connected Pin Constraint ( (All) )</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2234.673mil|Location2.X=2302.728mil|Location1.Y=2464.673mil|Location2.Y=2532.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2234.673mil|Location2.X=2302.728mil|Location1.Y=2464.673mil|Location2.Y=2532.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P4-1(393.701mil,393.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2334.673mil|Location2.X=2402.728mil|Location1.Y=2464.673mil|Location2.Y=2532.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2334.673mil|Location2.X=2402.728mil|Location1.Y=2464.673mil|Location2.Y=2532.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P4-2(493.701mil,393.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2234.673mil|Location2.X=2302.728mil|Location1.Y=2564.673mil|Location2.Y=2632.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2234.673mil|Location2.X=2302.728mil|Location1.Y=2564.673mil|Location2.Y=2632.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P4-3(393.701mil,493.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2334.673mil|Location2.X=2402.728mil|Location1.Y=2564.673mil|Location2.Y=2632.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2334.673mil|Location2.X=2402.728mil|Location1.Y=2564.673mil|Location2.Y=2632.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P4-4(493.701mil,493.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2234.673mil|Location2.X=2302.728mil|Location1.Y=2664.673mil|Location2.Y=2732.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2234.673mil|Location2.X=2302.728mil|Location1.Y=2664.673mil|Location2.Y=2732.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P4-5(393.701mil,593.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2334.673mil|Location2.X=2402.728mil|Location1.Y=2664.673mil|Location2.Y=2732.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2334.673mil|Location2.X=2402.728mil|Location1.Y=2664.673mil|Location2.Y=2732.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P4-6(493.701mil,593.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2234.673mil|Location2.X=2302.728mil|Location1.Y=2764.673mil|Location2.Y=2832.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2234.673mil|Location2.X=2302.728mil|Location1.Y=2764.673mil|Location2.Y=2832.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P4-7(393.701mil,693.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2334.673mil|Location2.X=2402.728mil|Location1.Y=2764.673mil|Location2.Y=2832.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2334.673mil|Location2.X=2402.728mil|Location1.Y=2764.673mil|Location2.Y=2832.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P4-8(493.701mil,693.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2234.673mil|Location2.X=2302.728mil|Location1.Y=2864.673mil|Location2.Y=2932.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2234.673mil|Location2.X=2302.728mil|Location1.Y=2864.673mil|Location2.Y=2932.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P4-9(393.701mil,793.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2334.673mil|Location2.X=2402.728mil|Location1.Y=2864.673mil|Location2.Y=2932.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2334.673mil|Location2.X=2402.728mil|Location1.Y=2864.673mil|Location2.Y=2932.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P4-10(493.701mil,793.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2234.673mil|Location2.X=2302.728mil|Location1.Y=2964.673mil|Location2.Y=3032.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2234.673mil|Location2.X=2302.728mil|Location1.Y=2964.673mil|Location2.Y=3032.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P4-11(393.701mil,893.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2334.673mil|Location2.X=2402.728mil|Location1.Y=2964.673mil|Location2.Y=3032.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2334.673mil|Location2.X=2402.728mil|Location1.Y=2964.673mil|Location2.Y=3032.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P4-12(493.701mil,893.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2234.673mil|Location2.X=2302.728mil|Location1.Y=3064.673mil|Location2.Y=3132.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2234.673mil|Location2.X=2302.728mil|Location1.Y=3064.673mil|Location2.Y=3132.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P4-13(393.701mil,993.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2334.673mil|Location2.X=2402.728mil|Location1.Y=3064.673mil|Location2.Y=3132.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2334.673mil|Location2.X=2402.728mil|Location1.Y=3064.673mil|Location2.Y=3132.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P4-14(493.701mil,993.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2234.673mil|Location2.X=2302.728mil|Location1.Y=3164.673mil|Location2.Y=3232.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2234.673mil|Location2.X=2302.728mil|Location1.Y=3164.673mil|Location2.Y=3232.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P4-15(393.701mil,1093.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2334.673mil|Location2.X=2402.728mil|Location1.Y=3164.673mil|Location2.Y=3232.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2334.673mil|Location2.X=2402.728mil|Location1.Y=3164.673mil|Location2.Y=3232.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P4-16(493.701mil,1093.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2234.673mil|Location2.X=2302.728mil|Location1.Y=3264.673mil|Location2.Y=3332.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2234.673mil|Location2.X=2302.728mil|Location1.Y=3264.673mil|Location2.Y=3332.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P4-17(393.701mil,1193.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2334.673mil|Location2.X=2402.728mil|Location1.Y=3264.673mil|Location2.Y=3332.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2334.673mil|Location2.X=2402.728mil|Location1.Y=3264.673mil|Location2.Y=3332.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P4-18(493.701mil,1193.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2234.673mil|Location2.X=2302.728mil|Location1.Y=3364.673mil|Location2.Y=3432.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2234.673mil|Location2.X=2302.728mil|Location1.Y=3364.673mil|Location2.Y=3432.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P4-19(393.701mil,1293.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2334.673mil|Location2.X=2402.728mil|Location1.Y=3364.673mil|Location2.Y=3432.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2334.673mil|Location2.X=2402.728mil|Location1.Y=3364.673mil|Location2.Y=3432.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P4-20(493.701mil,1293.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2234.673mil|Location2.X=2302.728mil|Location1.Y=3464.673mil|Location2.Y=3532.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2234.673mil|Location2.X=2302.728mil|Location1.Y=3464.673mil|Location2.Y=3532.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P4-21(393.701mil,1393.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2334.673mil|Location2.X=2402.728mil|Location1.Y=3464.673mil|Location2.Y=3532.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2334.673mil|Location2.X=2402.728mil|Location1.Y=3464.673mil|Location2.Y=3532.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P4-22(493.701mil,1393.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2234.673mil|Location2.X=2302.728mil|Location1.Y=3564.673mil|Location2.Y=3632.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2234.673mil|Location2.X=2302.728mil|Location1.Y=3564.673mil|Location2.Y=3632.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P4-23(393.701mil,1493.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2334.673mil|Location2.X=2402.728mil|Location1.Y=3564.673mil|Location2.Y=3632.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2334.673mil|Location2.X=2402.728mil|Location1.Y=3564.673mil|Location2.Y=3632.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P4-24(493.701mil,1493.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2234.673mil|Location2.X=2302.728mil|Location1.Y=3664.673mil|Location2.Y=3732.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2234.673mil|Location2.X=2302.728mil|Location1.Y=3664.673mil|Location2.Y=3732.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P4-25(393.701mil,1593.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2334.673mil|Location2.X=2402.728mil|Location1.Y=3664.673mil|Location2.Y=3732.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2334.673mil|Location2.X=2402.728mil|Location1.Y=3664.673mil|Location2.Y=3732.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P4-26(493.701mil,1593.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2234.673mil|Location2.X=2302.728mil|Location1.Y=3764.673mil|Location2.Y=3832.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2234.673mil|Location2.X=2302.728mil|Location1.Y=3764.673mil|Location2.Y=3832.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P4-27(393.701mil,1693.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2334.673mil|Location2.X=2402.728mil|Location1.Y=3764.673mil|Location2.Y=3832.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2334.673mil|Location2.X=2402.728mil|Location1.Y=3764.673mil|Location2.Y=3832.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P4-28(493.701mil,1693.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2234.673mil|Location2.X=2302.728mil|Location1.Y=3864.673mil|Location2.Y=3932.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2234.673mil|Location2.X=2302.728mil|Location1.Y=3864.673mil|Location2.Y=3932.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P4-29(393.701mil,1793.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2334.673mil|Location2.X=2402.728mil|Location1.Y=3864.673mil|Location2.Y=3932.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2334.673mil|Location2.X=2402.728mil|Location1.Y=3864.673mil|Location2.Y=3932.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P4-30(493.701mil,1793.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2234.673mil|Location2.X=2302.728mil|Location1.Y=3964.673mil|Location2.Y=4032.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2234.673mil|Location2.X=2302.728mil|Location1.Y=3964.673mil|Location2.Y=4032.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P4-31(393.701mil,1893.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2234.673mil|Location2.X=2302.728mil|Location1.Y=4064.673mil|Location2.Y=4132.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2234.673mil|Location2.X=2302.728mil|Location1.Y=4064.673mil|Location2.Y=4132.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P4-33(393.701mil,1993.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2334.673mil|Location2.X=2402.728mil|Location1.Y=4064.673mil|Location2.Y=4132.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2334.673mil|Location2.X=2402.728mil|Location1.Y=4064.673mil|Location2.Y=4132.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P4-34(493.701mil,1993.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2492.154mil|Location2.X=2560.209mil|Location1.Y=2664.673mil|Location2.Y=2732.729mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2492.154mil|Location2.X=2560.209mil|Location1.Y=2664.673mil|Location2.Y=2732.729mil|Absolute=True">Un-Connected Pin Constraint: Pad P5-1(651.181mil,593.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4392.972mil|Location2.X=4461.028mil|Location1.Y=3664.673mil|Location2.Y=3732.729mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4392.972mil|Location2.X=4461.028mil|Location1.Y=3664.673mil|Location2.Y=3732.729mil|Absolute=True">Un-Connected Pin Constraint: Pad P2-1(2552mil,1593.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4392.972mil|Location2.X=4461.028mil|Location1.Y=3564.673mil|Location2.Y=3632.729mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4392.972mil|Location2.X=4461.028mil|Location1.Y=3564.673mil|Location2.Y=3632.729mil|Absolute=True">Un-Connected Pin Constraint: Pad P2-2(2552mil,1493.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4392.972mil|Location2.X=4461.028mil|Location1.Y=2564.673mil|Location2.Y=2632.729mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4392.972mil|Location2.X=4461.028mil|Location1.Y=2564.673mil|Location2.Y=2632.729mil|Absolute=True">Un-Connected Pin Constraint: Pad P6-5(2552mil,493.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4392.972mil|Location2.X=4461.028mil|Location1.Y=2464.673mil|Location2.Y=2532.729mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4392.972mil|Location2.X=4461.028mil|Location1.Y=2464.673mil|Location2.Y=2532.729mil|Absolute=True">Un-Connected Pin Constraint: Pad P6-6(2552mil,393.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2492.153mil|Location2.X=2560.209mil|Location1.Y=4024.673mil|Location2.Y=4092.729mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2492.153mil|Location2.X=2560.209mil|Location1.Y=4024.673mil|Location2.Y=4092.729mil|Absolute=True">Un-Connected Pin Constraint: Pad P1-8(651.181mil,1953.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2492.153mil|Location2.X=2560.209mil|Location1.Y=3324.673mil|Location2.Y=3392.729mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2492.153mil|Location2.X=2560.209mil|Location1.Y=3324.673mil|Location2.Y=3392.729mil|Absolute=True">Un-Connected Pin Constraint: Pad P1-1(651.181mil,1253.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4575.972mil|Location2.X=4644.028mil|Location1.Y=4660.972mil|Location2.Y=4729.028mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4575.972mil|Location2.X=4644.028mil|Location1.Y=4660.972mil|Location2.Y=4729.028mil|Absolute=True">Un-Connected Pin Constraint: Pad IMU(1-5(2735mil,2590mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4657.508mil|Location2.X=4725.563mil|Location1.Y=2564.673mil|Location2.Y=2632.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4657.508mil|Location2.X=4725.563mil|Location1.Y=2564.673mil|Location2.Y=2632.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P3-4(2816.535mil,493.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4557.508mil|Location2.X=4625.563mil|Location1.Y=2764.673mil|Location2.Y=2832.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4557.508mil|Location2.X=4625.563mil|Location1.Y=2764.673mil|Location2.Y=2832.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P3-7(2716.535mil,693.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4657.508mil|Location2.X=4725.563mil|Location1.Y=2764.673mil|Location2.Y=2832.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4657.508mil|Location2.X=4725.563mil|Location1.Y=2764.673mil|Location2.Y=2832.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P3-8(2816.535mil,693.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4557.508mil|Location2.X=4625.563mil|Location1.Y=2864.673mil|Location2.Y=2932.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4557.508mil|Location2.X=4625.563mil|Location1.Y=2864.673mil|Location2.Y=2932.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P3-9(2716.535mil,793.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4657.508mil|Location2.X=4725.563mil|Location1.Y=2864.673mil|Location2.Y=2932.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4657.508mil|Location2.X=4725.563mil|Location1.Y=2864.673mil|Location2.Y=2932.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P3-10(2816.535mil,793.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4657.508mil|Location2.X=4725.563mil|Location1.Y=2964.673mil|Location2.Y=3032.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4657.508mil|Location2.X=4725.563mil|Location1.Y=2964.673mil|Location2.Y=3032.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P3-12(2816.535mil,893.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4557.508mil|Location2.X=4625.563mil|Location1.Y=3064.673mil|Location2.Y=3132.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4557.508mil|Location2.X=4625.563mil|Location1.Y=3064.673mil|Location2.Y=3132.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P3-13(2716.535mil,993.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4657.508mil|Location2.X=4725.563mil|Location1.Y=3064.673mil|Location2.Y=3132.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4657.508mil|Location2.X=4725.563mil|Location1.Y=3064.673mil|Location2.Y=3132.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P3-14(2816.535mil,993.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4657.508mil|Location2.X=4725.563mil|Location1.Y=3164.673mil|Location2.Y=3232.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4657.508mil|Location2.X=4725.563mil|Location1.Y=3164.673mil|Location2.Y=3232.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P3-16(2816.535mil,1093.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4557.508mil|Location2.X=4625.563mil|Location1.Y=3264.673mil|Location2.Y=3332.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4557.508mil|Location2.X=4625.563mil|Location1.Y=3264.673mil|Location2.Y=3332.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P3-17(2716.535mil,1193.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4657.508mil|Location2.X=4725.563mil|Location1.Y=3264.673mil|Location2.Y=3332.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4657.508mil|Location2.X=4725.563mil|Location1.Y=3264.673mil|Location2.Y=3332.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P3-18(2816.535mil,1193.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4557.508mil|Location2.X=4625.563mil|Location1.Y=3364.673mil|Location2.Y=3432.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4557.508mil|Location2.X=4625.563mil|Location1.Y=3364.673mil|Location2.Y=3432.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P3-19(2716.535mil,1293.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4657.508mil|Location2.X=4725.563mil|Location1.Y=3364.673mil|Location2.Y=3432.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4657.508mil|Location2.X=4725.563mil|Location1.Y=3364.673mil|Location2.Y=3432.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P3-20(2816.535mil,1293.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4557.508mil|Location2.X=4625.563mil|Location1.Y=3464.673mil|Location2.Y=3532.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4557.508mil|Location2.X=4625.563mil|Location1.Y=3464.673mil|Location2.Y=3532.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P3-21(2716.535mil,1393.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4657.508mil|Location2.X=4725.563mil|Location1.Y=3464.673mil|Location2.Y=3532.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4657.508mil|Location2.X=4725.563mil|Location1.Y=3464.673mil|Location2.Y=3532.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P3-22(2816.535mil,1393.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4557.508mil|Location2.X=4625.563mil|Location1.Y=3564.673mil|Location2.Y=3632.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4557.508mil|Location2.X=4625.563mil|Location1.Y=3564.673mil|Location2.Y=3632.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P3-23(2716.535mil,1493.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4657.508mil|Location2.X=4725.563mil|Location1.Y=3564.673mil|Location2.Y=3632.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4657.508mil|Location2.X=4725.563mil|Location1.Y=3564.673mil|Location2.Y=3632.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P3-24(2816.535mil,1493.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4557.508mil|Location2.X=4625.563mil|Location1.Y=3664.673mil|Location2.Y=3732.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4557.508mil|Location2.X=4625.563mil|Location1.Y=3664.673mil|Location2.Y=3732.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P3-25(2716.535mil,1593.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4657.508mil|Location2.X=4725.563mil|Location1.Y=3664.673mil|Location2.Y=3732.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4657.508mil|Location2.X=4725.563mil|Location1.Y=3664.673mil|Location2.Y=3732.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P3-26(2816.535mil,1593.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4557.508mil|Location2.X=4625.563mil|Location1.Y=3764.673mil|Location2.Y=3832.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4557.508mil|Location2.X=4625.563mil|Location1.Y=3764.673mil|Location2.Y=3832.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P3-27(2716.535mil,1693.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4657.508mil|Location2.X=4725.563mil|Location1.Y=3764.673mil|Location2.Y=3832.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4657.508mil|Location2.X=4725.563mil|Location1.Y=3764.673mil|Location2.Y=3832.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P3-28(2816.535mil,1693.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4557.508mil|Location2.X=4625.563mil|Location1.Y=3864.673mil|Location2.Y=3932.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4557.508mil|Location2.X=4625.563mil|Location1.Y=3864.673mil|Location2.Y=3932.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P3-29(2716.535mil,1793.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4657.508mil|Location2.X=4725.563mil|Location1.Y=3864.673mil|Location2.Y=3932.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4657.508mil|Location2.X=4725.563mil|Location1.Y=3864.673mil|Location2.Y=3932.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P3-30(2816.535mil,1793.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4557.508mil|Location2.X=4625.563mil|Location1.Y=4064.673mil|Location2.Y=4132.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4557.508mil|Location2.X=4625.563mil|Location1.Y=4064.673mil|Location2.Y=4132.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P3-33(2716.535mil,1993.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4557.508mil|Location2.X=4625.563mil|Location1.Y=4164.673mil|Location2.Y=4232.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4557.508mil|Location2.X=4625.563mil|Location1.Y=4164.673mil|Location2.Y=4232.728mil|Absolute=True">Un-Connected Pin Constraint: Pad P3-35(2716.535mil,2093.701mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3663.571mil|Location2.X=3743.437mil|Location1.Y=3090.539mil|Location2.Y=3170.405mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3663.571mil|Location2.X=3743.437mil|Location1.Y=3090.539mil|Location2.Y=3170.405mil|Absolute=True">Un-Connected Pin Constraint: Pad IC1-55(1828.504mil,1025.472mil)  Top Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3533.65mil|Location2.X=3613.516mil|Location1.Y=2901.563mil|Location2.Y=2981.429mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3533.65mil|Location2.X=3613.516mil|Location1.Y=2901.563mil|Location2.Y=2981.429mil|Absolute=True">Un-Connected Pin Constraint: Pad IC1-45(1698.583mil,836.496mil)  Top Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3513.965mil|Location2.X=3593.831mil|Location1.Y=2901.563mil|Location2.Y=2981.429mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3513.965mil|Location2.X=3593.831mil|Location1.Y=2901.563mil|Location2.Y=2981.429mil|Absolute=True">Un-Connected Pin Constraint: Pad IC1-44(1678.898mil,836.496mil)  Top Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3454.91mil|Location2.X=3534.776mil|Location1.Y=2901.563mil|Location2.Y=2981.429mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3454.91mil|Location2.X=3534.776mil|Location1.Y=2901.563mil|Location2.Y=2981.429mil|Absolute=True">Un-Connected Pin Constraint: Pad IC1-41(1619.843mil,836.496mil)  Top Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3356.484mil|Location2.X=3436.35mil|Location1.Y=2901.563mil|Location2.Y=2981.429mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3356.484mil|Location2.X=3436.35mil|Location1.Y=2901.563mil|Location2.Y=2981.429mil|Absolute=True">Un-Connected Pin Constraint: Pad IC1-36(1521.417mil,836.496mil)  Top Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3336.799mil|Location2.X=3416.665mil|Location1.Y=2901.563mil|Location2.Y=2981.429mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3336.799mil|Location2.X=3416.665mil|Location1.Y=2901.563mil|Location2.Y=2981.429mil|Absolute=True">Un-Connected Pin Constraint: Pad IC1-35(1501.732mil,836.496mil)  Top Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3317.114mil|Location2.X=3396.98mil|Location1.Y=2901.563mil|Location2.Y=2981.429mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3317.114mil|Location2.X=3396.98mil|Location1.Y=2901.563mil|Location2.Y=2981.429mil|Absolute=True">Un-Connected Pin Constraint: Pad IC1-34(1482.047mil,836.496mil)  Top Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3297.429mil|Location2.X=3377.295mil|Location1.Y=2901.563mil|Location2.Y=2981.429mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3297.429mil|Location2.X=3377.295mil|Location1.Y=2901.563mil|Location2.Y=2981.429mil|Absolute=True">Un-Connected Pin Constraint: Pad IC1-33(1462.362mil,836.496mil)  Top Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3226.563mil|Location2.X=3306.429mil|Location1.Y=3070.854mil|Location2.Y=3150.72mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3226.563mil|Location2.X=3306.429mil|Location1.Y=3070.854mil|Location2.Y=3150.72mil|Absolute=True">Un-Connected Pin Constraint: Pad IC1-27(1391.496mil,1005.787mil)  Top Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3226.563mil|Location2.X=3306.429mil|Location1.Y=3090.539mil|Location2.Y=3170.405mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3226.563mil|Location2.X=3306.429mil|Location1.Y=3090.539mil|Location2.Y=3170.405mil|Absolute=True">Un-Connected Pin Constraint: Pad IC1-26(1391.496mil,1025.472mil)  Top Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3226.563mil|Location2.X=3306.429mil|Location1.Y=3110.224mil|Location2.Y=3190.09mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3226.563mil|Location2.X=3306.429mil|Location1.Y=3110.224mil|Location2.Y=3190.09mil|Absolute=True">Un-Connected Pin Constraint: Pad IC1-25(1391.496mil,1045.157mil)  Top Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3226.563mil|Location2.X=3306.429mil|Location1.Y=3129.91mil|Location2.Y=3209.776mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3226.563mil|Location2.X=3306.429mil|Location1.Y=3129.91mil|Location2.Y=3209.776mil|Absolute=True">Un-Connected Pin Constraint: Pad IC1-24(1391.496mil,1064.842mil)  Top Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3226.563mil|Location2.X=3306.429mil|Location1.Y=3208.65mil|Location2.Y=3288.516mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3226.563mil|Location2.X=3306.429mil|Location1.Y=3208.65mil|Location2.Y=3288.516mil|Absolute=True">Un-Connected Pin Constraint: Pad IC1-20(1391.496mil,1143.583mil)  Top Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4096.288mil|Location2.X=4123.004mil|Location1.Y=3367.311mil|Location2.Y=3394.028mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4096.288mil|Location2.X=4123.004mil|Location1.Y=3367.311mil|Location2.Y=3394.028mil|Absolute=True">Un-Connected Pin Constraint: Pad IC4-14(2234.646mil,1275.669mil)  Top Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4076.602mil|Location2.X=4103.319mil|Location1.Y=3367.311mil|Location2.Y=3394.028mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4076.602mil|Location2.X=4103.319mil|Location1.Y=3367.311mil|Location2.Y=3394.028mil|Absolute=True">Un-Connected Pin Constraint: Pad IC4-15(2214.961mil,1275.669mil)  Top Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4096.288mil|Location2.X=4123.004mil|Location1.Y=3266.972mil|Location2.Y=3293.689mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4096.288mil|Location2.X=4123.004mil|Location1.Y=3266.972mil|Location2.Y=3293.689mil|Absolute=True">Un-Connected Pin Constraint: Pad IC4-7(2234.646mil,1175.331mil)  Top Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4076.602mil|Location2.X=4103.319mil|Location1.Y=3266.972mil|Location2.Y=3293.689mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4076.602mil|Location2.X=4103.319mil|Location1.Y=3266.972mil|Location2.Y=3293.689mil|Absolute=True">Un-Connected Pin Constraint: Pad IC4-6(2214.961mil,1175.331mil)  Top Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4056.917mil|Location2.X=4083.634mil|Location1.Y=3266.972mil|Location2.Y=3293.689mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4056.917mil|Location2.X=4083.634mil|Location1.Y=3266.972mil|Location2.Y=3293.689mil|Absolute=True">Un-Connected Pin Constraint: Pad IC4-5(2195.276mil,1175.331mil)  Top Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4036.248mil|Location2.X=4062.965mil|Location1.Y=3307.327mil|Location2.Y=3334.043mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4036.248mil|Location2.X=4062.965mil|Location1.Y=3307.327mil|Location2.Y=3334.043mil|Absolute=True">Un-Connected Pin Constraint: Pad IC4-3(2174.606mil,1215.685mil)  Top Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4034.949mil|Location2.X=4073.476mil|Location1.Y=3690.264mil|Location2.Y=3728.791mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4034.949mil|Location2.X=4073.476mil|Location1.Y=3690.264mil|Location2.Y=3728.791mil|Absolute=True">Un-Connected Pin Constraint: Pad IC2-2(2179.213mil,1604.528mil)  Top Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4034.949mil|Location2.X=4073.476mil|Location1.Y=3670.579mil|Location2.Y=3709.106mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4034.949mil|Location2.X=4073.476mil|Location1.Y=3670.579mil|Location2.Y=3709.106mil|Absolute=True">Un-Connected Pin Constraint: Pad IC2-3(2179.213mil,1584.842mil)  Top Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4034.949mil|Location2.X=4073.476mil|Location1.Y=3650.894mil|Location2.Y=3689.421mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4034.949mil|Location2.X=4073.476mil|Location1.Y=3650.894mil|Location2.Y=3689.421mil|Absolute=True">Un-Connected Pin Constraint: Pad IC2-4(2179.213mil,1565.158mil)  Top Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4034.949mil|Location2.X=4073.476mil|Location1.Y=3631.209mil|Location2.Y=3669.736mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4034.949mil|Location2.X=4073.476mil|Location1.Y=3631.209mil|Location2.Y=3669.736mil|Absolute=True">Un-Connected Pin Constraint: Pad IC2-5(2179.213mil,1545.472mil)  Top Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4186.524mil|Location2.X=4225.051mil|Location1.Y=3631.209mil|Location2.Y=3669.736mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4186.524mil|Location2.X=4225.051mil|Location1.Y=3631.209mil|Location2.Y=3669.736mil|Absolute=True">Un-Connected Pin Constraint: Pad IC2-14(2330.787mil,1545.472mil)  Top Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4186.524mil|Location2.X=4225.051mil|Location1.Y=3650.894mil|Location2.Y=3689.421mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4186.524mil|Location2.X=4225.051mil|Location1.Y=3650.894mil|Location2.Y=3689.421mil|Absolute=True">Un-Connected Pin Constraint: Pad IC2-15(2330.787mil,1565.158mil)  Top Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4186.524mil|Location2.X=4225.051mil|Location1.Y=3670.579mil|Location2.Y=3709.106mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4186.524mil|Location2.X=4225.051mil|Location1.Y=3670.579mil|Location2.Y=3709.106mil|Absolute=True">Un-Connected Pin Constraint: Pad IC2-16(2330.787mil,1584.842mil)  Top Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4186.524mil|Location2.X=4225.051mil|Location1.Y=3690.264mil|Location2.Y=3728.791mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4186.524mil|Location2.X=4225.051mil|Location1.Y=3690.264mil|Location2.Y=3728.791mil|Absolute=True">Un-Connected Pin Constraint: Pad IC2-17(2330.787mil,1604.528mil)  Top Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4159.949mil|Location2.X=4198.476mil|Location1.Y=3736.524mil|Location2.Y=3775.051mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4159.949mil|Location2.X=4198.476mil|Location1.Y=3736.524mil|Location2.Y=3775.051mil|Absolute=True">Un-Connected Pin Constraint: Pad IC2-19(2304.213mil,1650.787mil)  Top Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4120.579mil|Location2.X=4159.106mil|Location1.Y=3736.524mil|Location2.Y=3775.051mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4120.579mil|Location2.X=4159.106mil|Location1.Y=3736.524mil|Location2.Y=3775.051mil|Absolute=True">Un-Connected Pin Constraint: Pad IC2-21(2264.843mil,1650.787mil)  Top Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=H:\%E9%A3%9E%E6%9C%BA\PCB\%E6%89%A9%E5%B1%95%E6%9D%BF\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4100.894mil|Location2.X=4139.421mil|Location1.Y=3736.524mil|Location2.Y=3775.051mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=H:\飞机\PCB\扩展板\RG-v4-14\XMC-RG.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4100.894mil|Location2.X=4139.421mil|Location1.Y=3736.524mil|Location2.Y=3775.051mil|Absolute=True">Un-Connected Pin Constraint: Pad IC2-22(2245.157mil,1650.787mil)  Top Layer</acronym></a><br></td>
+</tr>
+</table></a><a href="#top">Back to top</a><br><br></body>
+</html>
